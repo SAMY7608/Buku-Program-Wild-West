@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ms"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buku Program Wild West — Boleh Diedit</title>
+<style>
+:root{--navy:#173354;--navy2:#24496b;--gold:#c9a45b;--goldlight:#ead7a5;--cream:#fff9ec;--paper:#f5ead5;--brown:#805b3b;--brownlight:#b58b61;--sand:#e6d1b0;--ink:#493a2d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#e7ddcc;color:var(--ink);font-family:Georgia,"Times New Roman",serif;line-height:1.55}
+.toolbar{position:sticky;top:0;z-index:20;background:var(--navy);color:var(--cream);padding:.65rem 1rem;box-shadow:0 3px 12px #17335430;font-family:Arial,sans-serif}
+.tools{max-width:1050px;margin:auto;display:flex;gap:.55rem;align-items:center;justify-content:center;flex-wrap:wrap}
+.toolbar strong{color:var(--goldlight);margin-right:.4rem}
+button,.file-label{font:600 .86rem Arial,sans-serif;border:1px solid var(--gold);background:var(--cream);color:var(--navy);padding:.58rem .85rem;border-radius:8px;cursor:pointer}
+button:hover,.file-label:hover{background:var(--goldlight)}.toolbar .help{width:100%;text-align:center;color:#f5ead5;font-size:.78rem;margin-top:.35rem}
+nav{display:flex;justify-content:center;gap:.4rem;flex-wrap:wrap;padding:.7rem;background:var(--navy2)}
+nav a{font:600 .8rem Arial,sans-serif;text-decoration:none;padding:.38rem .6rem;border:1px solid #c9a45b88;border-radius:999px;color:var(--cream)}
+.book{padding:1.3rem 1rem 3rem;display:flex;flex-direction:column;align-items:center;gap:1.4rem}
+.page{width:min(100%,210mm);min-height:297mm;background:var(--cream);padding:14mm;position:relative;overflow:hidden;box-shadow:0 10px 30px #805b3b25;border:1px solid var(--sand);display:flex;flex-direction:column}
+.page:before{content:"";position:absolute;inset:5mm;border:1.5px solid var(--gold);pointer-events:none}
+.page:after{content:"✦  ✦  ✦";position:absolute;bottom:7mm;left:0;right:0;text-align:center;color:var(--brownlight);font-size:.75rem;letter-spacing:.55em;pointer-events:none}
+.page-number{position:absolute;bottom:10mm;right:13mm;color:var(--brown);font:600 .72rem Arial,sans-serif}
+.kicker{text-transform:uppercase;letter-spacing:.2em;color:var(--brown);font:700 .75rem Arial,sans-serif;text-align:center}
+h1,h2,h3{color:var(--navy);margin-top:0}h1{font-size:clamp(2rem,5vw,3.8rem);line-height:1.06;text-align:center;margin:.6rem 0}h2{font-size:clamp(1.6rem,3.5vw,2.4rem);text-align:center;margin:0 0 1.3rem}h3{font-size:1.1rem;margin-bottom:.35rem}
+.subtitle{text-align:center;color:var(--brown);font-size:1.1rem}.hero-art{margin:1.1rem auto;width:min(100%,440px);height:210px;display:grid;place-items:center;border-radius:48% 48% 12px 12px;background:linear-gradient(180deg,#e9d7b4,#fff7e7);border:2px solid var(--gold);position:relative;overflow:hidden}
+.sun{position:absolute;width:115px;height:115px;border-radius:50%;background:var(--goldlight);top:20px;right:19%}.mesa{position:absolute;bottom:0;left:0;width:100%;height:95px;background:var(--brownlight);clip-path:polygon(0 75%,18% 25%,32% 60%,52% 12%,69% 54%,83% 20%,100% 67%,100% 100%,0 100%)}.cactus{position:absolute;bottom:30px;left:16%;font-size:3.8rem;color:var(--navy)}.hat{position:relative;z-index:2;font-size:5.6rem}
+.cover-details{margin-top:auto;text-align:center;border-top:1px solid var(--gold);padding-top:1rem}.cover-details p{margin:.25rem}.ribbon{display:inline-block;background:var(--navy);color:var(--goldlight);padding:.45rem 1rem;border-radius:999px;font:700 .8rem Arial,sans-serif;letter-spacing:.12em}
+.lead{text-align:center;max-width:560px;margin:0 auto 1.3rem}.info-box{background:#f3e6ce;border-left:4px solid var(--gold);padding:1rem 1.1rem;border-radius:0 10px 10px 0;margin:.6rem 0}.signature{text-align:center;margin-top:auto;padding-top:2rem;color:var(--brown)}.signature .line{width:190px;border-top:1px solid var(--brownlight);margin:.8rem auto .3rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.tile{background:#f5ead5;border:1px solid var(--sand);border-radius:12px;padding:.9rem}.symbol{font-size:1.4rem}
+table{width:100%;border-collapse:collapse;font-family:Arial,sans-serif;font-size:.9rem}th{background:var(--navy);color:var(--goldlight);text-align:left}th,td{padding:.72rem .65rem;border:1px solid var(--sand);vertical-align:top}td{background:#fffdf7}tbody tr:nth-child(even) td{background:#f5ead5}
+.role-list{display:grid;grid-template-columns:1fr 1fr;gap:.45rem 1rem}.role{border-bottom:1px dashed var(--brownlight);padding:.45rem 0}.role strong{display:block;color:var(--navy)}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0}.photo-placeholder{min-height:145px;border:2px dashed var(--brownlight);background:#f5ead5;border-radius:10px;display:grid;place-items:center;text-align:center;padding:1rem;color:var(--brown);position:relative;overflow:hidden}.photo-placeholder img{max-width:100%;max-height:220px;object-fit:cover;border-radius:7px}.photo-placeholder input{max-width:100%;font: .75rem Arial,sans-serif}.photo-placeholder .photo-content{width:100%}
+.thankyou{margin:auto;text-align:center}.big-star{font-size:3rem;color:var(--gold)}.small-note{font:.78rem Arial,sans-serif;color:var(--brown);text-align:center;margin-top:.8rem}
+[contenteditable="true"]{outline:1px dashed transparent;border-radius:3px;cursor:text}[contenteditable="true"]:hover{outline-color:#c9a45b}[contenteditable="true"]:focus{outline:2px solid var(--gold);background:#fffdf5}
+.editing-tip{max-width:210mm;margin:0 auto 1rem;background:var(--cream);border:1px solid var(--gold);padding:.8rem 1rem;border-radius:10px;color:var(--brown);font:.9rem Arial,sans-serif}
+@media(max-width:650px){.toolbar{position:relative}.book{padding:.65rem .4rem 2rem;gap:1rem}.page{width:100%;min-height:0;padding:12mm 8mm 17mm;overflow:visible}.page:before{inset:3mm}.hero-art{height:170px}.grid,.role-list{grid-template-columns:1fr}table{font-size:.78rem}th,td{padding:.5rem .4rem}.page-number{bottom:8mm;right:9mm}}
+@media print{body{background:white}.toolbar,nav,.editing-tip{display:none!important}.book{padding:0;gap:0}.page{width:210mm;height:297mm;min-height:297mm;box-shadow:none;border:0;page-break-after:always;break-after:page}[contenteditable="true"]{outline:none}}
+</style>
+</head>
+<body>
+
+<nav aria-label="Navigasi buku program"><a href="#utama">Muka Hadapan</a><a href="#ucapan">Ucapan</a><a href="#maklumat">Maklumat</a><a href="#ajk">Jawatankuasa</a><a href="#aturcara">Atur Cara</a><a href="#pengisian">Pengisian</a><a href="#galeri">Galeri</a><a href="#penghargaan">Penghargaan</a></nav>
+<div class="book" id="book">
+ <section class="page" id="utama">
+  <div class="kicker">Kenangan • Kesyukuran • Kebersamaan</div>
+  <div style="margin-top:1.1rem;text-align:center"><span class="ribbon">WILD WEST · COWBOY NIGHT</span></div>
+  <div class="hero-art"><div class="sun"></div><div class="mesa"></div><div class="cactus">♣</div><div class="hat">🤠</div></div>
+  <h1>MAJLIS JAMUAN<br>MAKAN AKHIR TAHUN</h1>
+  <p class="subtitle">“Bersama Membina Ukhwah, Meraikan Kecemerlangan”</p>
+  <div class="cover-details"><p><strong>[NAMA SEKOLAH]</strong></p><p>Tarikh: [HARI, TARIKH]</p><p>Masa: [MASA]</p><p>Tempat: [TEMPAT]</p></div><div class="page-number">01</div>
+ </section>
+ <section class="page" id="ucapan">
+  <div class="kicker">Salam Mesra • Salam Penghargaan</div><h2>Kata Alu-aluan</h2>
+  <p class="lead">Assalamualaikum warahmatullahi wabarakatuh dan salam sejahtera.</p>
+  <p>Alhamdulillah, marilah kita bersama-sama memanjatkan rasa syukur kerana dapat berkumpul dalam Majlis Jamuan Makan Akhir Tahun yang penuh bermakna ini.</p>
+  <p>Majlis ini diadakan sebagai ruang untuk mengeratkan hubungan, menghargai usaha dan komitmen seluruh warga sekolah serta meraikan kenangan yang telah kita bina bersama sepanjang tahun.</p>
+  <p>Semoga suasana mesra bertemakan <em>Wild West</em> ini menceriakan majlis dan menjadi kenangan indah buat kita semua. Terima kasih kepada semua pihak yang telah memberikan sokongan dan tenaga bagi menjayakan program ini.</p>
+  <p>Selamat menikmati jamuan dan semoga kita terus melangkah bersama dengan semangat kekeluargaan.</p>
+  <p style="text-align:center;color:var(--navy);font-weight:bold;margin-top:1rem">Sekian, terima kasih.</p>
+  <div class="signature"><div class="line"></div><strong>[NAMA GURU BESAR]</strong><br><span>Guru Besar, [NAMA SEKOLAH]</span></div><div class="page-number">02</div>
+ </section>
+ <section class="page" id="maklumat">
+  <div class="kicker">Tentang Majlis Kita</div><h2>Maklumat Majlis</h2>
+  <div class="info-box"><h3>✨ Pengenalan</h3><p>Majlis Jamuan Makan Akhir Tahun merupakan acara untuk menghimpunkan warga sekolah dalam suasana santai, meraikan pencapaian serta menghargai kerjasama sepanjang tahun.</p></div>
+  <h3>Objektif</h3><div class="grid">
+   <div class="tile"><div class="symbol">🤝</div><strong>Mengeratkan ukhwah</strong><br><span>Mengukuhkan hubungan mesra antara warga sekolah.</span></div>
+   <div class="tile"><div class="symbol">⭐</div><strong>Menghargai sumbangan</strong><br><span>Meraikan usaha dan komitmen semua pihak.</span></div>
+   <div class="tile"><div class="symbol">🎉</div><strong>Mencipta kenangan</strong><br><span>Mewujudkan pengalaman yang menggembirakan.</span></div>
+   <div class="tile"><div class="symbol">🌵</div><strong>Menyemai semangat</strong><br><span>Meneruskan kerjasama dan semangat berpasukan.</span></div>
+  </div>
+  <div class="info-box" style="margin-top:1.2rem"><h3>Butiran Program</h3><p><strong>Tema:</strong> Wild West – Cowboy Night</p><p><strong>Tarikh:</strong> [TARIKH PROGRAM]</p><p><strong>Masa:</strong> [MASA PROGRAM]</p><p><strong>Tempat:</strong> [LOKASI PROGRAM]</p></div><div class="page-number">03</div>
+ </section>
+ <section class="page" id="ajk">
+  <div class="kicker">Barisan Penggerak</div><h2>Jawatankuasa Pelaksana</h2><p class="lead">Setinggi-tinggi penghargaan kepada semua yang menyumbang tenaga dan idea untuk menjayakan majlis ini.</p>
+  <div class="role-list">
+   <div class="role"><strong>Penaung</strong><span>[Nama / Jawatan]</span></div><div class="role"><strong>Penasihat</strong><span>[Nama / Jawatan]</span></div>
+   <div class="role"><strong>Pengerusi</strong><span>[Nama]</span></div><div class="role"><strong>Timbalan Pengerusi</strong><span>[Nama]</span></div>
+   <div class="role"><strong>Setiausaha</strong><span>[Nama]</span></div><div class="role"><strong>Bendahari</strong><span>[Nama]</span></div>
+   <div class="role"><strong>Protokol dan Sambutan</strong><span>[Nama / Nama ahli]</span></div><div class="role"><strong>Jamuan</strong><span>[Nama / Nama ahli]</span></div>
+   <div class="role"><strong>Persiapan Tempat dan Hiasan</strong><span>[Nama / Nama ahli]</span></div><div class="role"><strong>Hadiah dan Cabutan Bertuah</strong><span>[Nama / Nama ahli]</span></div>
+   <div class="role"><strong>Dokumentasi dan Fotografi</strong><span>[Nama / Nama ahli]</span></div><div class="role"><strong>Teknikal dan Siar Raya</strong><span>[Nama / Nama ahli]</span></div>
+  </div><p class="small-note">Sila gantikan semua ruang [Nama] dengan maklumat sebenar.</p><div class="page-number">04</div>
+ </section>
+ <section class="page" id="aturcara">
+  <div class="kicker">Perjalanan Majlis</div><h2>Atur Cara Majlis</h2><p class="lead">Semoga setiap detik majlis berlangsung dengan lancar dan penuh keceriaan.</p>
+  <table><thead><tr><th style="width:32%">Masa</th><th>Aktiviti</th></tr></thead><tbody>
+   <tr><td>[Masa]</td><td>Ketibaan dan pendaftaran tetamu</td></tr><tr><td>[Masa]</td><td>Ucapan alu-aluan pengacara majlis</td></tr><tr><td>[Masa]</td><td>Bacaan doa</td></tr><tr><td>[Masa]</td><td>Ucapan Guru Besar</td></tr><tr><td>[Masa]</td><td>Jamuan makan</td></tr><tr><td>[Masa]</td><td>Persembahan / aktiviti khas</td></tr><tr><td>[Masa]</td><td>Penyampaian penghargaan (jika ada)</td></tr><tr><td>[Masa]</td><td>Cabutan bertuah (jika ada)</td></tr><tr><td>[Masa]</td><td>Sesi fotografi</td></tr><tr><td>[Masa]</td><td>Penutup dan bersurai</td></tr>
+  </tbody></table><div class="info-box" style="margin-top:1.4rem"><strong>Makluman:</strong> Atur cara dan masa di atas ialah templat. Sila kemas kini mengikut perjalanan majlis sebenar.</div><div class="page-number">05</div>
+ </section>
+ <section class="page" id="pengisian">
+  <div class="kicker">Sorotan Istimewa</div><h2>Pengisian &amp; Penghargaan</h2>
+  <div class="tile" style="margin-bottom:.8rem"><h3>🎶 Persembahan</h3><p>[Masukkan nama persembahan, kumpulan atau peserta.]</p></div>
+  <div class="tile" style="margin-bottom:.8rem"><h3>🏅 Penyampaian Penghargaan</h3><p>[Masukkan kategori penghargaan dan nama penerima jika berkaitan.]</p></div>
+  <div class="tile" style="margin-bottom:.8rem"><h3>🎁 Cabutan Bertuah</h3><p>[Masukkan maklumat hadiah atau penaja jika berkaitan.]</p></div>
+  <div class="tile"><h3>🤠 Aktiviti Bertemakan Wild West</h3><p>[Masukkan aktiviti khas atau pertandingan pakaian jika dianjurkan.]</p></div><p class="small-note">Padam atau ubah bahagian yang tidak berkenaan dengan majlis.</p><div class="page-number">06</div>
+ </section>
+ <section class="page" id="galeri">
+  <div class="kicker">Detik yang Dirakam</div><h2>Galeri Kenangan</h2><p class="lead">Sekilas kenangan dan momen istimewa bersama warga sekolah.</p>
+  <div class="photo-grid">
+   <div class="photo-placeholder"><div class="photo-content"><span>📷</span><strong>Gambar 1</strong><p>Letakkan gambar di sini</p></div></div>
+   <div class="photo-placeholder"><div class="photo-content"><span>📷</span><strong>Gambar 2</strong><p>Letakkan gambar di sini</p></div></div>
+   <div class="photo-placeholder"><div class="photo-content"><span>📷</span><strong>Gambar 3</strong><p>Letakkan gambar di sini</p></div></div>
+   <div class="photo-placeholder"><div class="photo-content"><span>📷</span><strong>Gambar 4</strong><p>Letakkan gambar di sini</p></div></div>
+  </div><div class="info-box"><strong>Tip:</strong> Gunakan gambar yang sesuai dan telah mendapat kebenaran untuk diterbitkan.</div><div class="page-number">07</div>
+ </section>
+ <section class="page" id="penghargaan">
+  <div class="thankyou"><div class="big-star">✦ ✦ ✦</div><div class="kicker">Dengan Setulus Penghargaan</div><h1 style="font-size:clamp(2.3rem,6vw,4rem)">TERIMA<br>KASIH!</h1>
+   <p class="subtitle">Atas sokongan, kerjasama dan komitmen anda.</p><div class="hero-art" style="height:175px"><div class="sun"></div><div class="mesa"></div><div class="cactus">♣</div><div class="hat">🤠</div></div>
+   <p>Kepada pihak pentadbir, guru-guru, staf sekolah, jawatankuasa, penaja dan semua yang telah menyumbang kepada kejayaan majlis ini, jasa dan sokongan anda amat dihargai.</p><p style="font-size:1.25rem;color:var(--navy);font-weight:bold">“Satu Keluarga, Satu Kenangan,<br>Seribu Penghargaan.”</p><p class="subtitle">Semoga kita bertemu lagi dalam suasana yang lebih bermakna.</p><p style="margin-top:2rem;color:var(--brown);font-weight:bold">[NAMA SEKOLAH]</p>
+  </div><div class="page-number">08</div>
+ </section>
+</div>
+
+<script>
+let editing=false;
+function toggleEdit(){editing=!editing;document.querySelectorAll('[contenteditable]').forEach(el=>el.setAttribute('contenteditable',editing?'true':'false'));document.getElementById('editBtn').textContent=editing?'Selesai menyunting':'Aktifkan suntingan';}
+function insertPhoto(event,input){const file=event.target.files&&event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{const box=input.closest('.photo-placeholder');box.innerHTML='';const img=document.createElement('img');img.src=reader.result;img.alt='Gambar galeri';img.style.maxWidth='100%';img.style.maxHeight='230px';box.appendChild(img);const label=document.createElement('p');label.contentEditable=editing?'true':'false';label.textContent=file.name;label.style.margin='.4rem 0 0';box.appendChild(label);};reader.readAsDataURL(file);}
+function saveHtml(){const clone=document.documentElement.cloneNode(true);clone.querySelectorAll('.toolbar,.editing-tip').forEach(e=>e.remove());clone.querySelectorAll('[contenteditable]').forEach(e=>e.removeAttribute('contenteditable'));clone.querySelectorAll('input[type=file]').forEach(e=>e.remove());const data='<!DOCTYPE html>\n'+clone.outerHTML;const blob=new Blob([data],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='buku_program_wild_west_suntingan.html';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);}
+function loadHtml(event){const file=event.target.files&&event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{const doc=new DOMParser().parseFromString(reader.result,'text/html');const newBook=doc.querySelector('#book');if(!newBook){alert('Fail ini bukan buku program yang serasi.');return;}document.querySelector('#book').innerHTML=newBook.innerHTML;document.querySelectorAll('nav a').forEach(a=>{const target=doc.querySelector(a.getAttribute('href'));if(target&&!document.getElementById(target.id)){}});alert('Kandungan fail telah dimuatkan. Sila semak dan simpan semula.');};reader.readAsText(file);}
+</script>
+
+</body></html>
